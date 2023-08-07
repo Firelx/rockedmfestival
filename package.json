@@ -1,0 +1,31 @@
+{
+  "name": "festivalmusica_inicio",
+  "version": "1.0.0",
+  "description": "Proyecto con Gulp, SASS y HTML",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch src/scss:build/css",
+    "dev": "gulp dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Firelx/rockedmfestival.git"
+  },
+  "keywords": [
+    "SASS",
+    "Gulp",
+    "HTML"
+  ],
+  "author": "Jose Lopez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Firelx/rockedmfestival/issues"
+  },
+  "homepage": "https://github.com/Firelx/rockedmfestival#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-plumber": "^1.2.1",
+    "gulp-sass": "^5.1.0",
+    "sass": "^1.64.2"
+  }
+}
