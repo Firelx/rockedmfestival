@@ -24,6 +24,12 @@
 	}
 }
 
+@mixin grid($cols, $espaciado) {
+	display: grid;
+    grid-template-columns: repeat($cols, 1fr);
+    gap: $espaciado;
+} 
+
 /*
 @mixin heading($color: v.$negro, $border-radius: false) {
     text-transform: uppercase;
