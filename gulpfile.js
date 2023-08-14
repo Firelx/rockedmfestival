@@ -31,6 +31,7 @@ function versionWebp(done) {
 	done();
 }
 
+// Optimiza imagenes png y jpg para que pesen menos
 function imagenes(done) {
 	const opciones = {
 		optimizationLevel: 3,
@@ -43,6 +44,7 @@ function imagenes(done) {
 	done();
 }
 
+// Crea la versión avif de las imagenes
 function versionAvif(done) {
 	const opciones = {
 		quality: 50,
@@ -53,14 +55,23 @@ function versionAvif(done) {
 	done();
 }
 
+// Mueve los archivos js de src a build
+function javascript(done) {
+	src('src/js/**/*.js').pipe(dest('build/js'));
+
+	done();
+}
+
 //Vigila los cambios en los archivos scss
 function dev(done) {
 	watch('src/**/*.scss', css);
+	watch('src/js/**/*.js', javascript);
 	done();
 }
 
 exports.css = css;
+exports.js = javascript;
 exports.imagenes = imagenes;
 exports.versionWebp = versionWebp;
 exports.versionAvif = versionAvif;
-exports.dev = parallel(imagenes, versionWebp, versionAvif, dev);
+exports.dev = parallel(imagenes, versionWebp, versionAvif, javascript, dev);
