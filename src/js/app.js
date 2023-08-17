@@ -65,7 +65,7 @@ function mostrarImagen(id) {
 	overlay.appendChild(imagen);
 	overlay.classList.add('overlay');
 
-    // Cerrar el modal al dar click en cualquier lugar
+    // Cerrar el overlay al dar click en cualquier lugar
 	overlay.onclick = function () {
         overlay.remove();
 		const body = document.querySelector('body');

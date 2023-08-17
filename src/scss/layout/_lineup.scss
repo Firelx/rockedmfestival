@@ -24,9 +24,6 @@
 	@include m.tablet {
 		@include m.grid(2, 5rem);
 	}
-
-    
-	
 }
 
 .escenario {
@@ -34,6 +31,7 @@
     
     .nombre-escenario {
         color: v.$negro;
+
         &:after {
             content: '';
             width: 20rem;
