@@ -19,6 +19,9 @@ body {
 	&.fijar-body {
 		overflow: hidden;
 	}
+	&.body-scroll {
+		padding-top: 86px;
+	}
 }
 
 p {

@@ -4,8 +4,52 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function iniciarAPP() {
 	crearGaleria();
+	scrollNav();
+	navegacionFija();
 }
 
+// Al hacer click en algun enlace de navegacion ir hacia esa seccion de manera suave (smooth)
+function scrollNav() {
+	const enlaces = document.querySelectorAll('.navegacion-principal a');
+
+	enlaces.forEach((enlace) => {
+		enlace.addEventListener('click', function (e) {
+			e.preventDefault();
+
+			const seccionScroll = e.target.attributes.href.value;
+			const seccion = document.querySelector(seccionScroll);
+
+			seccion.scrollIntoView({ behavior: 'smooth' });
+		});
+	});
+
+    const inicio = document.querySelector('.inicio');
+    inicio.addEventListener('click', function() {
+        window.scrollTo( {
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+// Fijar la barra de navegacion cuando el scroll pase la parte inferior de .sobre-festival
+function navegacionFija() {
+	const barra = document.querySelector('.header');
+	const sobreFestival = document.querySelector('.sobre-festival');
+    const body = document.querySelector('body');
+
+	window.addEventListener('scroll', function () {
+
+        if( sobreFestival.getBoundingClientRect().top < 0) {
+            barra.classList.add('fijo');
+            body.classList.add('body-scroll');
+        }
+        else {
+            barra.classList.remove('fijo');
+            body.classList.remove('body-scroll');
+        }
+	});
+}
 function crearGaleria() {
 	const galeria = document.querySelector('.galeria-imagenes');
 
@@ -65,12 +109,12 @@ function mostrarImagen(id) {
 	overlay.appendChild(imagen);
 	overlay.classList.add('overlay');
 
-    // Cerrar el overlay al dar click en cualquier lugar
+	// Cerrar el overlay al dar click en cualquier lugar
 	overlay.onclick = function () {
-        overlay.remove();
+		overlay.remove();
 		const body = document.querySelector('body');
 		body.classList.remove('fijar-body');
-    };
+	};
 
 	// Boton para cerrar el modal
 	const cerrarModal = document.createElement('P');

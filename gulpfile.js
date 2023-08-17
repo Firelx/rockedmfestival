@@ -57,7 +57,7 @@ function versionAvif(done) {
 
 // Mueve los archivos js de src a build
 function javascript(done) {
-	src('src/js/**/*.js').pipe(dest('build/js'));
+	src('src/js/*.js').pipe(dest('build/js'));
 
 	done();
 }
@@ -65,7 +65,7 @@ function javascript(done) {
 //Vigila los cambios en los archivos scss
 function dev(done) {
 	watch('src/**/*.scss', css);
-	watch('src/js/**/*.js', javascript);
+	watch('src/js/*.js', javascript);
 	done();
 }
 
