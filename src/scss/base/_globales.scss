@@ -14,6 +14,7 @@ html {
 body {
 	font-family: v.$fuente_principal;
 	margin: 0;
+	scrollbar-gutter: stable;
 	
 	&.fijar-body {
 		overflow: hidden;
@@ -60,3 +61,4 @@ img {
 	height: auto;
 	display: block;
 }
+
