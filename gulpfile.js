@@ -3,6 +3,9 @@ const { src, dest, watch, parallel } = require('gulp');
 // CSS
 const sass = require('gulp-sass')(require('sass'));
 const plumber = require('gulp-plumber');
+const autoprefixer = require('autoprefixer'); // Se asegura de que funcione en el navegador utilizado
+const cssnano = require('cssnano'); // Reduce el tamaño del css
+const postcss = require('gulp-postcss');
 
 // Imagenes
 const cache = require('gulp-cache'); // Para guardar las imagenes en cache para despues reducir su tamaño
@@ -15,6 +18,7 @@ function css(done) {
 	src('src/scss/app.scss') // Identificar el archivo SASS
 		.pipe(plumber()) // Añadir plumber para que no detenga la ejecución del watch por algun error
 		.pipe(sass()) // Compilarlo
+		.pipe(postcss([autoprefixer(), cssnano()]))
 		.pipe(dest('build/css')); // Almacenarla en el disco duro
 
 	done(); // Callback que avisa a gulp cuando una función llega al final
