@@ -5,7 +5,8 @@ const sass = require('gulp-sass')(require('sass'));
 const plumber = require('gulp-plumber');
 const autoprefixer = require('autoprefixer'); // Se asegura de que funcione en el navegador utilizado
 const cssnano = require('cssnano'); // Reduce el tamaño del css
-const postcss = require('gulp-postcss');
+const postcss = require('gulp-postcss'); // Ejecuta una accion con el css (minificarlo)
+const sourcemaps = require('gulp-sourcemaps');
 
 // Imagenes
 const cache = require('gulp-cache'); // Para guardar las imagenes en cache para despues reducir su tamaño
@@ -13,12 +14,17 @@ const imagemin = require('gulp-imagemin'); // Para reducir el tamaño de las ima
 const webp = require('gulp-webp');
 const avif = require('gulp-avif');
 
+// JS
+const terser = require('gulp-terser-js');
+
 // Ejecuta sass sobre app.scss y guarda el resultado en build/css, ademas ejecuta plumber para que no se detenga el watcch de los archivos scss ante un error
 function css(done) {
 	src('src/scss/app.scss') // Identificar el archivo SASS
+		.pipe(sourcemaps.init())
 		.pipe(plumber()) // Añadir plumber para que no detenga la ejecución del watch por algun error
 		.pipe(sass()) // Compilarlo
 		.pipe(postcss([autoprefixer(), cssnano()]))
+		.pipe(sourcemaps.write('.'))
 		.pipe(dest('build/css')); // Almacenarla en el disco duro
 
 	done(); // Callback que avisa a gulp cuando una función llega al final
@@ -61,7 +67,11 @@ function versionAvif(done) {
 
 // Mueve los archivos js de src a build
 function javascript(done) {
-	src('src/js/*.js').pipe(dest('build/js'));
+	src('src/js/**/*.js')
+		.pipe(sourcemaps.init())
+		.pipe(terser())
+		.pipe(sourcemaps.write())
+		.pipe(dest('build/js'));
 
 	done();
 }
@@ -69,7 +79,7 @@ function javascript(done) {
 //Vigila los cambios en los archivos scss
 function dev(done) {
 	watch('src/**/*.scss', css);
-	watch('src/js/*.js', javascript);
+	watch('src/js/**/*.js', javascript);
 	done();
 }
 
